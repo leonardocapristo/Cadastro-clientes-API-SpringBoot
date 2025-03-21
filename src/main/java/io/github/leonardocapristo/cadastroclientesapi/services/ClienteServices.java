@@ -19,7 +19,7 @@ public class ClienteServices {
 	@Autowired
 	private ClienteRepository repository;
 	
-	public Page<ClienteDTO> buscarTodosPorPagina(PageRequest pageRequest) {
+	public Page<ClienteDTO> buscarTodosPaginaFiltros(PageRequest pageRequest) {
 		
 	    Page<Cliente> lista = repository.findAll(pageRequest);
 	    

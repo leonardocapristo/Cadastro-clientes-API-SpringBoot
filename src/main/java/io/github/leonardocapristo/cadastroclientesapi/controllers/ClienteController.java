@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,19 +27,23 @@ public class ClienteController {
 	@Autowired
 	private ClienteServices services;
 
-	public Page<ClienteDTO> buscarTodosPorPagina(
-		    @RequestParam(defaultValue = "0") int page,  // Página inicial (começa do 0)
-		    @RequestParam(defaultValue = "10") int size// Tamanho da página
-
+	
+	@GetMapping(value = "/filtros")
+	public Page<ClienteDTO> buscarTodosPaginaFiltros(
+		    @RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
+		    @RequestParam(value = "camposPorPagina", defaultValue = "6") Integer camposPorPagina,
+		    @RequestParam(value = "direcao", defaultValue = "ASC") String direcao, // Default para ASC mas pode ser DESC
+		    @RequestParam(value = "ordenarPor", defaultValue = "id") String ordenarPor
 		) {
-
 		    
-		    // Criando o PageRequest com ordenação
-		    PageRequest pageRequest = PageRequest.of(page, size);
 
-		    // Chamando o serviço para buscar os clientes paginados
-		    return services.buscarTodosPorPagina(pageRequest);
-		}
+
+		    PageRequest pageRequest = PageRequest.of(pagina, camposPorPagina, Direction.valueOf(direcao),ordenarPor);
+
+
+		    return services.buscarTodosPaginaFiltros(pageRequest);
+	}
+
 
 
 
