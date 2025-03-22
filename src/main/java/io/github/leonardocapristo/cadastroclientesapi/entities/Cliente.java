@@ -1,6 +1,9 @@
 package io.github.leonardocapristo.cadastroclientesapi.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +36,8 @@ public class Cliente implements Serializable {
 	private String nome;
 	private String email;
 	private Long telefone;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataNascimento;
 	
 	
 

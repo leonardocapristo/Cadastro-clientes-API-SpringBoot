@@ -72,6 +72,7 @@ public class ClienteServices {
 		entity.setNome(clienteDTO.getNome());
 		entity.setEmail(clienteDTO.getEmail());
 		entity.setTelefone(clienteDTO.getTelefone());
+		entity.setDataNascimento(clienteDTO.getDataNascimento());
 		
 		repository.save(entity);
 		
