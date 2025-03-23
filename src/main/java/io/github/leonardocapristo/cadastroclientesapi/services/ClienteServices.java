@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.entities.Cliente;
+import io.github.leonardocapristo.cadastroclientesapi.exceptions.IdNaoEncontradoException;
 import io.github.leonardocapristo.cadastroclientesapi.repositories.ClienteRepository;
 
 @Service
@@ -58,8 +59,7 @@ public class ClienteServices {
 	
 	public ClienteDTO buscarPorId(Long id) {
 		
-	    Cliente entity = repository.findById(id).get();
-	    
+	    Cliente entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		return new ClienteDTO(entity);
 
 	}
@@ -84,11 +84,12 @@ public class ClienteServices {
 	
 	public ClienteDTO atualizar(Long id, ClienteDTO clienteDTO) {
 		
-		Cliente entity = repository.findById(id).get();
+		Cliente entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		
 		entity.setNome(clienteDTO.getNome());
 		entity.setEmail(clienteDTO.getEmail());
 		entity.setTelefone(clienteDTO.getTelefone());
+		entity.setDataNascimento(clienteDTO.getDataNascimento());
 		
 		repository.save(entity);
 		
@@ -98,7 +99,7 @@ public class ClienteServices {
 	
 	public ClienteDTO deletar (Long id) {
 		
-		Cliente entity = repository.findById(id).get();
+		Cliente entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		
 		repository.deleteById(entity.getId());
 		
