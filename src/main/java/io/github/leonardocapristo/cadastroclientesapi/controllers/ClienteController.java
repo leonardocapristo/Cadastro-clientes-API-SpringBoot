@@ -1,5 +1,6 @@
 package io.github.leonardocapristo.cadastroclientesapi.controllers;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.services.ClienteServices;
@@ -60,10 +63,19 @@ public class ClienteController {
 		return services.buscarPorId(id);
 	}
 	
-	@ResponseStatus(HttpStatus.CREATED)
+
 	@PostMapping
-	public ClienteDTO adicionarNovo(@RequestBody ClienteDTO clienteDTO) {
-		return services.adicionarNovo(clienteDTO);
+	public ResponseEntity<ClienteDTO> adicionarNovo(@RequestBody ClienteDTO clienteDTO) {
+		
+		ClienteDTO dto = services.adicionarNovo(clienteDTO);
+		
+		 URI uri = ServletUriComponentsBuilder
+			        .fromCurrentRequest() // Baseia-se na URL atual
+			        .path("/{id}") // Adiciona o ID do cliente à URL
+			        .buildAndExpand(dto.getId()) // Substitui {id} pelo ID do cliente
+			        .toUri(); // Converte para URI
+		
+		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value = "/{id}")
@@ -82,33 +94,6 @@ public class ClienteController {
 		
 	}
 	
-	
-	
-	
-	
-	/*
-	PODEMOS ENCAPSULAR OS MÉTODOS DENTRO DE UM RESPONSE ENTITY PAAR PERSONALIZAR AS REPOSTAS
-	
-	EX : 
-	
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	public List<ClienteDTO> buscarTodos() {
-		return services.buscarTodos();
-	}
-			|
-			|
-			|
-			
-	@GetMapping
-	public ResponseEntity<List<ClienteDTO>> buscarTodos(){
-		return ResponseEntity.ok().body(services.buscarTodos());
-	}
-	
-	
-	
-	
-	 * */
 	
 	
 }
