@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
@@ -20,9 +20,10 @@ public class ClienteServices {
 	@Autowired
 	private ClienteRepository repository;
 	
-	public Page<ClienteDTO> buscarTodosPaginaFiltros(PageRequest pageRequest) {
+	public Page<ClienteDTO> buscarTodosPaginaFiltros(Pageable pageable) {
+		//parametros page,size e sort
 		
-	    Page<Cliente> lista = repository.findAll(pageRequest);
+	    Page<Cliente> lista = repository.findAll(pageable);
 	    
 	    return lista.map(cliente -> new ClienteDTO(cliente));
 	}
