@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class InsertClienteDTO {
 	
 
-	private String nome;
+	private String nome; 
 	private String email;
 	private Long telefone;
 	@JsonFormat(pattern = "dd/MM/yyyy")
