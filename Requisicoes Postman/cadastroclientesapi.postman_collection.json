@@ -95,7 +95,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"Luis\",\r\n    \"email\": \"luis\",\r\n    \"telefone\": 23433434234,\r\n    \"dataNascimento\": \"30/07/2002\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"Caio\",\r\n    \"email\": \"caio@gmail\",\r\n    \"telefone\": 23433434234,\r\n    \"dataNascimento\": \"25/03/1997\",\r\n    \"cpf\": null\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -122,7 +122,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"bruno\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"telefone\": 11987654321,\r\n    \"dataNascimento\": \"30/08/2008\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"bruno2\",\r\n    \"email\": \"joao.silva@email.com\",\r\n    \"telefone\": 11987654321,\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -130,14 +130,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/clientes/9000",
+					"raw": "localhost:8080/clientes/70",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"clientes",
-						"9000"
+						"70"
 					]
 				}
 			},

@@ -11,6 +11,8 @@ import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
 
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
+import io.github.leonardocapristo.cadastroclientesapi.dto.InsertClienteDTO;
+import io.github.leonardocapristo.cadastroclientesapi.dto.UpdateClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.entities.Cliente;
 import io.github.leonardocapristo.cadastroclientesapi.exceptions.FiltrosInvalidosException;
 import io.github.leonardocapristo.cadastroclientesapi.exceptions.IdNaoEncontradoException;
@@ -76,31 +78,35 @@ public class ClienteServices {
 	}
 	
 	
-	public ClienteDTO adicionarNovo(ClienteDTO clienteDTO) {
-		
-		Cliente entity = new Cliente();
-		
-		entity.setNome(clienteDTO.getNome());
-		entity.setEmail(clienteDTO.getEmail());
-		entity.setTelefone(clienteDTO.getTelefone());
-		entity.setDataNascimento(clienteDTO.getDataNascimento());
-		
-		repository.save(entity);
-		
-		
-		return new ClienteDTO(entity);
+	public ClienteDTO adicionarNovo(InsertClienteDTO insertClienteDTO) {
+
+	    
+			
+			Cliente entity = new Cliente();
+			
+			entity.setNome(insertClienteDTO.getNome());
+			entity.setEmail(insertClienteDTO.getEmail());
+			entity.setTelefone(insertClienteDTO.getTelefone());
+			entity.setDataNascimento(insertClienteDTO.getDataNascimento());
+			entity.setCpf(insertClienteDTO.getCpf());
+			
+			repository.save(entity);
+			
+			
+			return new ClienteDTO(entity);
+
 		
 	}
 	
 	
-	public ClienteDTO atualizar(Long id, ClienteDTO clienteDTO) {
+	public ClienteDTO atualizar(Long id, UpdateClienteDTO updateClienteDTO) {
 		
 		Cliente entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		
-		entity.setNome(clienteDTO.getNome());
-		entity.setEmail(clienteDTO.getEmail());
-		entity.setTelefone(clienteDTO.getTelefone());
-		entity.setDataNascimento(clienteDTO.getDataNascimento());
+		entity.setNome(updateClienteDTO.getNome());
+		entity.setEmail(updateClienteDTO.getEmail());
+		entity.setTelefone(updateClienteDTO.getTelefone());
+
 		
 		repository.save(entity);
 		
@@ -108,17 +114,13 @@ public class ClienteServices {
 		
 	}
 	
-	public ClienteDTO deletar (Long id) {
+	public void deletar (Long id) {
 		
 		Cliente entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		
 		repository.deleteById(entity.getId());
 		
-		ClienteDTO dto = new ClienteDTO(entity);
-		
-		
-		
-		return dto;
+
 		
 	}
 

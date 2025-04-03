@@ -38,6 +38,7 @@ public class Cliente implements Serializable {
 	private Long telefone;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataNascimento;
+	private String cpf;
 	
 	
 
