@@ -7,10 +7,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
 
+import io.github.leonardocapristo.cadastroclientesapi.dto.AdicionarClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.entities.Cliente;
+import io.github.leonardocapristo.cadastroclientesapi.exceptions.FiltrosInvalidosException;
 import io.github.leonardocapristo.cadastroclientesapi.exceptions.IdNaoEncontradoException;
 import io.github.leonardocapristo.cadastroclientesapi.repositories.ClienteRepository;
 
@@ -21,11 +24,19 @@ public class ClienteServices {
 	private ClienteRepository repository;
 	
 	public Page<ClienteDTO> buscarTodosPaginaFiltros(Pageable pageable) {
-		//parametros page,size e sort
 		
-	    Page<Cliente> lista = repository.findAll(pageable);
-	    
-	    return lista.map(cliente -> new ClienteDTO(cliente));
+		
+		try {
+			//parametros page,size e sort
+			
+		    Page<Cliente> lista = repository.findAll(pageable);
+		    return lista.map(cliente -> new ClienteDTO(cliente));
+		    
+		    
+		} catch (PropertyReferenceException e) {
+			throw new FiltrosInvalidosException("Filtros de busca inválidos");
+		}
+
 	}
 
 	
@@ -66,14 +77,14 @@ public class ClienteServices {
 	}
 	
 	
-	public ClienteDTO adicionarNovo(ClienteDTO clienteDTO) {
+	public ClienteDTO adicionarNovo(AdicionarClienteDTO adicionarClienteDTO) {
 		
 		Cliente entity = new Cliente();
 		
-		entity.setNome(clienteDTO.getNome());
-		entity.setEmail(clienteDTO.getEmail());
-		entity.setTelefone(clienteDTO.getTelefone());
-		entity.setDataNascimento(clienteDTO.getDataNascimento());
+		entity.setNome(adicionarClienteDTO.getNome());
+		entity.setEmail(adicionarClienteDTO.getEmail());
+		entity.setTelefone(adicionarClienteDTO.getTelefone());
+		entity.setDataNascimento(adicionarClienteDTO.getDataNascimento());
 		
 		repository.save(entity);
 		
