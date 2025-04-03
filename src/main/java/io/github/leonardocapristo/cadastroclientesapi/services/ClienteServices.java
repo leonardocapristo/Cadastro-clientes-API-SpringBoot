@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
 
-import io.github.leonardocapristo.cadastroclientesapi.dto.AdicionarClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.entities.Cliente;
 import io.github.leonardocapristo.cadastroclientesapi.exceptions.FiltrosInvalidosException;
@@ -77,14 +76,14 @@ public class ClienteServices {
 	}
 	
 	
-	public ClienteDTO adicionarNovo(AdicionarClienteDTO adicionarClienteDTO) {
+	public ClienteDTO adicionarNovo(ClienteDTO clienteDTO) {
 		
 		Cliente entity = new Cliente();
 		
-		entity.setNome(adicionarClienteDTO.getNome());
-		entity.setEmail(adicionarClienteDTO.getEmail());
-		entity.setTelefone(adicionarClienteDTO.getTelefone());
-		entity.setDataNascimento(adicionarClienteDTO.getDataNascimento());
+		entity.setNome(clienteDTO.getNome());
+		entity.setEmail(clienteDTO.getEmail());
+		entity.setTelefone(clienteDTO.getTelefone());
+		entity.setDataNascimento(clienteDTO.getDataNascimento());
 		
 		repository.save(entity);
 		

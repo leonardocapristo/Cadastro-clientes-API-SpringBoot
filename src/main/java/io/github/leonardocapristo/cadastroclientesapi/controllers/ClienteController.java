@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.leonardocapristo.cadastroclientesapi.dto.AdicionarClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.dto.ClienteDTO;
 import io.github.leonardocapristo.cadastroclientesapi.services.ClienteServices;
 import io.swagger.v3.oas.annotations.Operation;
@@ -57,7 +56,10 @@ public class ClienteController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Buscar cliente por ID", description = "Retorna os detalhes de um cliente específico pelo ID.")
-    @ApiResponses
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Clientes encontrados com sucesso"),
+            @ApiResponse(responseCode = "404", description = "ID do cliente não encontrado")
+        })
     public ClienteDTO buscarPorId(@PathVariable Long id) {
         return services.buscarPorId(id);
     }
@@ -66,8 +68,8 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Adicionar um novo cliente", description = "Cria um novo cliente e retorna os dados salvos.")
     
-    public ClienteDTO adicionarNovo(@RequestBody AdicionarClienteDTO adicionarClienteDTO) {
-        return services.adicionarNovo(adicionarClienteDTO);
+    public ClienteDTO adicionarNovo(@RequestBody ClienteDTO clienteDTO) {
+        return services.adicionarNovo(clienteDTO);
     }
 
     @PutMapping(value = "/{id}")
