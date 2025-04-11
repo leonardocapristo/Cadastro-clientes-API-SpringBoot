@@ -97,7 +97,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "200", description = "Clientes atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inseridos inválidos")
         })
-    public ClienteDTO atualizar(@PathVariable Long id, @RequestBody UpdateClienteDTO updateClienteDTO) {
+    public ClienteDTO atualizar(@PathVariable Long id,@Valid @RequestBody UpdateClienteDTO updateClienteDTO) {
         return services.atualizar(id, updateClienteDTO);
     }
 
