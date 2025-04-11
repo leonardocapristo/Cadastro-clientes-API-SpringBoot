@@ -36,7 +36,7 @@ public class InsertClienteDTO {
 	@NotNull(message = "A data de nascimento é obrigatória.")
 	@Past(message = "A data de nascimento deve ser no passado.")
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@Schema(type = "string", format = "date", example = "31/12/2000")
+	@Schema(type = "date", format = "date", example = "31/12/2000")
 	private LocalDate dataNascimento;
 
 	@NotBlank(message = "O CPF é obrigatório.")
