@@ -29,7 +29,8 @@ public class InsertClienteDTO {
 	private String email;
 
 	@NotNull(message = "O telefone é obrigatório.")
-	@Digits(integer = 11, fraction = 0, message = "O telefone deve conter até 11 dígitos numéricos.")
+	@Min(value = 10000000000L, message = "O telefone deve ter no mínimo 11 dígitos.")
+	@Max(value = 99999999999L, message = "O telefone deve ter no máximo 11 dígitos.")
 	@Schema(type = "integer",example = "11987654321")
 	private Long telefone;
 
