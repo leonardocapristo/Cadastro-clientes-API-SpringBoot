@@ -1,6 +1,7 @@
 package io.github.leonardocapristo.cadastroclientesapi.services;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,16 +73,27 @@ public class ClienteServices {
 	
 	public ClienteDTO buscarPorId(Long id) {
 		
+		
 	    Cliente entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		return new ClienteDTO(entity);
 
 	}
 	
+	public Page<ClienteDTO> buscarPorCampos(
+	        String nome, String email, String cpf, Long telefone,
+	        LocalDate dataInicio, LocalDate dataFim, Pageable pageable
+	    ) {
+	        Page<Cliente> clientesPage = repository.filtrarClientes(
+	            nome, email, cpf, telefone, dataInicio, dataFim, pageable
+	        );
+	        
+	        // Converte Page<Cliente> para Page<ClienteDTO>
+	        return clientesPage.map(ClienteDTO::new);
+	    }
+	
 	
 	public ClienteDTO adicionarNovo(InsertClienteDTO insertClienteDTO) {
 
-	    
-			
 			Cliente entity = new Cliente();
 			
 			entity.setNome(insertClienteDTO.getNome());
@@ -91,8 +103,7 @@ public class ClienteServices {
 			entity.setCpf(insertClienteDTO.getCpf());
 			
 			repository.save(entity);
-			
-			
+		
 			return new ClienteDTO(entity);
 
 		
