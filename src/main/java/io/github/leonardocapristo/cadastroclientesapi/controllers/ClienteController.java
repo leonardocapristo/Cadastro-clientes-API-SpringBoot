@@ -50,12 +50,32 @@ public class ClienteController {
         @ApiResponse(responseCode = "400", description = "Filtros de busca inválidos")
     })
     @Parameters({
-        @Parameter(name = "page", description = "Número da página (começa em 0)", example = "1"),
+        @Parameter(name = "page", description = "Número da página (começa em 0)", example = "0"),
         @Parameter(name = "size", description = "Quantidade de itens por página", example = "5"),
         @Parameter(name = "sort", description = "Ordenação dos itens (ex: nome,asc)", example = "nome,asc")
     })
     public Page<ClienteDTO> buscarTodosPaginaFiltros(Pageable pageable) {
         return services.buscarTodosPaginaFiltros(pageable);
+    }
+    
+
+    @GetMapping("/filtros/campos")
+    @ResponseStatus(HttpStatus.OK)
+    @Parameters({
+        @Parameter(name = "page", description = "Número da página (começa em 0)", example = "0"),
+        @Parameter(name = "size", description = "Quantidade de itens por página", example = "5"),
+        @Parameter(name = "sort", description = "Ordenação dos itens (ex: nome,asc)", example = "nome,asc")
+    })
+    public Page<ClienteDTO> filtrarClientes(
+        @RequestParam(required = false) String nome,
+        @RequestParam(required = false) String email,
+        @RequestParam(required = false) String cpf,
+        @RequestParam(required = false) Long telefone,
+        @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicio,
+        @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFim,
+        Pageable pageable
+    ) {
+        return services.buscarPorCampos(nome, email, cpf, telefone, dataInicio, dataFim, pageable);
     }
 
     @GetMapping
@@ -77,23 +97,6 @@ public class ClienteController {
         })
     public ClienteDTO buscarPorId(@PathVariable Long id) {
         return services.buscarPorId(id);
-    }
-    
-    
-    
-    
-    @GetMapping("/filtros/campos")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<ClienteDTO> filtrarClientes(
-        @RequestParam(required = false) String nome,
-        @RequestParam(required = false) String email,
-        @RequestParam(required = false) String cpf,
-        @RequestParam(required = false) Long telefone,
-        @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataInicio,
-        @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate dataFim,
-        Pageable pageable
-    ) {
-        return services.buscarPorCampos(nome, email, cpf, telefone, dataInicio, dataFim, pageable);
     }
     
 
