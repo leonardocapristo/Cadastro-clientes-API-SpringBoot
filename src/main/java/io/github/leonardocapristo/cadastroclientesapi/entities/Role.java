@@ -2,9 +2,11 @@ package io.github.leonardocapristo.cadastroclientesapi.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +19,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 @Data
+@Table(name = "tb_role")
+@Entity
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

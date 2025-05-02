@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 @Data
-@Table(name = "tb_users")
+@Table(name = "tb_user")
 @Entity
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,6 +37,10 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	
+	@ManyToMany
+	@JoinTable(name = "tb_user_role",
+	joinColumns = @JoinColumn(name = "user_id"),
+	inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@Setter(AccessLevel.NONE)
 	private Set<Role> roles = new HashSet<>();
 }
