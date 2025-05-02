@@ -30,7 +30,7 @@ public class ClienteDTO {
 		this.email = cliente.getEmail();
 		this.telefone = cliente.getTelefone();
 		this.dataNascimento = cliente.getDataNascimento();
-		this.cpf = cliente.getCpf();
+		this.cpf = cliente.getCpf(); 
 	}
 
 }
