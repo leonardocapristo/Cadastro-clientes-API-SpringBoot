@@ -1,6 +1,10 @@
 package io.github.leonardocapristo.cadastroclientesapi.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import io.github.leonardocapristo.cadastroclientesapi.entities.User;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +20,9 @@ public class UserDTO {
 	private String lastName;
 	private String email;
 	private String password;
+	
+	@Setter(AccessLevel.NONE)
+	Set<RoleDTO> rolesDTO = new HashSet<>();
 	
 	public UserDTO (User user) {
 		this.id = user.getId();
