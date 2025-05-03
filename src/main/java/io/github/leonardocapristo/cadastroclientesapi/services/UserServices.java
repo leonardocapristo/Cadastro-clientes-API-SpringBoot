@@ -71,6 +71,22 @@ public class UserServices {
 		return new UserDTO(entity);
 
 	}
+	
+	public UserDTO atualizar(Long id, UserDTO userDTO) {
+		
+		User entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
+		
+		entity.setFirstName(userDTO.getFirstName());
+		entity.setLastName(userDTO.getLastName());
+		entity.setEmail(userDTO.getEmail());
+		entity.setPassword(userDTO.getPassword());
+
+		
+		repository.save(entity);
+		
+		return new UserDTO(entity);
+		
+	}
 
 	public void deletar(Long id) {
 
