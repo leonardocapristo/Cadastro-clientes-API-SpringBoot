@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.stereotype.Service;
 
+import io.github.leonardocapristo.cadastroclientesapi.dto.InsertUserDTO;
+import io.github.leonardocapristo.cadastroclientesapi.dto.UpdateUserDTO;
 import io.github.leonardocapristo.cadastroclientesapi.dto.UserDTO;
 import io.github.leonardocapristo.cadastroclientesapi.entities.User;
 import io.github.leonardocapristo.cadastroclientesapi.exceptions.FiltrosInvalidosException;
@@ -57,14 +59,14 @@ public class UserServices {
 
 	}
 
-	public UserDTO adicionarNovo(UserDTO userDTO) {
+	public UserDTO adicionarNovo(InsertUserDTO insertUserDTO) {
 
 		User entity = new User();
 
-		entity.setFirstName(userDTO.getEmail());
-		entity.setLastName(userDTO.getLastName());
-		entity.setEmail(userDTO.getEmail());
-		entity.setPassword(userDTO.getPassword());
+		entity.setFirstName(insertUserDTO.getEmail());
+		entity.setLastName(insertUserDTO.getLastName());
+		entity.setEmail(insertUserDTO.getEmail());
+		entity.setPassword(insertUserDTO.getPassword());
 
 		repository.save(entity);
 
@@ -72,14 +74,14 @@ public class UserServices {
 
 	}
 	
-	public UserDTO atualizar(Long id, UserDTO userDTO) {
+	public UserDTO atualizar(Long id, UpdateUserDTO updateUserDTO) {
 		
 		User entity = repository.findById(id).orElseThrow(() -> new IdNaoEncontradoException("ID do cliente não encontrado"));
 		
-		entity.setFirstName(userDTO.getFirstName());
-		entity.setLastName(userDTO.getLastName());
-		entity.setEmail(userDTO.getEmail());
-		entity.setPassword(userDTO.getPassword());
+		entity.setFirstName(updateUserDTO.getFirstName());
+		entity.setLastName(updateUserDTO.getLastName());
+		entity.setEmail(updateUserDTO.getEmail());
+		entity.setPassword(updateUserDTO.getPassword());
 
 		
 		repository.save(entity);

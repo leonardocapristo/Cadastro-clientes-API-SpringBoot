@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.leonardocapristo.cadastroclientesapi.dto.InsertUserDTO;
+import io.github.leonardocapristo.cadastroclientesapi.dto.UpdateUserDTO;
 import io.github.leonardocapristo.cadastroclientesapi.dto.UserDTO;
 import io.github.leonardocapristo.cadastroclientesapi.services.UserServices;
 
@@ -46,14 +48,14 @@ public class UserController {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO adicionarNovo(@RequestBody UserDTO userDTO) {
-        return services.adicionarNovo(userDTO);
+    public UserDTO adicionarNovo(@RequestBody InsertUserDTO insertUserDTO) {
+        return services.adicionarNovo(insertUserDTO);
     }
     
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO atualizar(@PathVariable Long id,@RequestBody UserDTO userDTO) {
-        return services.atualizar(id, userDTO);
+    public UserDTO atualizar(@PathVariable Long id,@RequestBody UpdateUserDTO updateUserDTO) {
+        return services.atualizar(id, updateUserDTO);
     }
     
     @DeleteMapping(value = "/{id}")
